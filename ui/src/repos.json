@@ -1,0 +1,32 @@
+[
+  {
+    "owner": "ozansz",
+    "name": "card-game",
+    "stars": 0,
+    "desc": ""
+  },
+  {
+    "owner": "ozansz",
+    "name": "cv-go",
+    "stars": 0,
+    "desc": "Build awesome CVs from YAML"
+  },
+  {
+    "owner": "ozansz",
+    "name": "gls",
+    "stars": 62,
+    "desc": "Minimal file manager with terminal UI #Go"
+  },
+  {
+    "owner": "ozansz",
+    "name": "utils",
+    "stars": 0,
+    "desc": "Small utility containers for testing and stuff. I put here the programs that I say \"I wish there was a container that does X\" more than once to myself, to be containerized."
+  },
+  {
+    "owner": "ozansz",
+    "name": "xort",
+    "stars": 0,
+    "desc": ""
+  }
+]

@@ -1,0 +1,143 @@
+package main
+
+import (
+	"context"
+	"encoding/base64"
+	"encoding/json"
+	"flag"
+	"fmt"
+	"log"
+	"os"
+	"strings"
+
+	"github.com/google/go-github/v60/github"
+)
+
+const (
+	authTokenEnv = "GITHUB_PUBLIC_REPO_READ_TOKEN"
+)
+
+var (
+	username  = flag.String("username", "", "GitHub username")
+	hostname  = flag.String("hostname", "", "Go package index hostname")
+	outPath   = flag.String("out", "repos.json", "Output file path")
+	forceAuth = flag.Bool("force-authenticated", false, "You must set the "+authTokenEnv+" env var if you used this flag")
+)
+
+type Repo struct {
+	Owner       string `json:"owner"`
+	Name        string `json:"name"`
+	Stars       uint   `json:"stars"`
+	Description string `json:"desc"`
+}
+
+type RepoArchive []*Repo
+
+func main() {
+	log.SetPrefix("sync-github-repos: ")
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+	flag.Parse()
+	validateFlags()
+
+	cl := github.NewClient(nil)
+
+	token := os.Getenv(authTokenEnv)
+	if token != "" {
+		log.Printf("Using auth token from env var: %s", authTokenEnv)
+		cl = cl.WithAuthToken(token)
+	} else {
+		if *forceAuth {
+			log.Fatalf("You must set the %s env var if you used the -force-authenticated flag", authTokenEnv)
+		}
+	}
+
+	ctx := context.Background()
+	repos := listRepos(ctx, cl, *username)
+
+	repos = filterGoRepositories(ctx, cl, *hostname, repos)
+	repoArchive := make(RepoArchive, 0, len(repos))
+	for _, repo := range repos {
+		repoArchive = append(repoArchive, &Repo{
+			Owner:       repo.GetOwner().GetLogin(),
+			Name:        repo.GetName(),
+			Stars:       uint(repo.GetStargazersCount()),
+			Description: repo.GetDescription(),
+		})
+	}
+
+	b, err := json.MarshalIndent(repoArchive, "", "  ")
+	must(err, "marshaling JSON")
+	must(os.WriteFile(*outPath, b, 0644), "writing JSON to file")
+}
+
+func filterGoRepositories(ctx context.Context, cl *github.Client, hostname string, repos []*github.Repository) []*github.Repository {
+	var goRepos []*github.Repository
+	prefix := fmt.Sprintf("module %s", hostname)
+
+	for _, repo := range repos {
+		log.Println("Checking", repo.GetFullName(), "for go.mod file")
+
+		content, _, _, err := cl.Repositories.GetContents(ctx, repo.GetOwner().GetLogin(), repo.GetName(), "go.mod", nil)
+		if resp, ok := err.(*github.ErrorResponse); ok {
+			if resp.Response.StatusCode == 404 {
+				continue
+			}
+		}
+		must(err, "getting go.mod file")
+		if content == nil {
+			continue
+		}
+		if content.Content == nil {
+			log.Printf("empty go.mod file found in %s/%s", repo.GetOwner().GetLogin(), repo.GetName())
+			continue
+		}
+		contentStr, err := base64.StdEncoding.DecodeString(*content.Content)
+		must(err, "decoding go.mod file")
+		log.Printf("go.mod file in %s/%s: %s", repo.GetOwner().GetLogin(), repo.GetName(), contentStr)
+		if strings.HasPrefix(string(contentStr), prefix) {
+			log.Printf("go.mod file in %s/%s has prefix %s", repo.GetOwner().GetLogin(), repo.GetName(), prefix)
+			goRepos = append(goRepos, repo)
+		}
+	}
+	return goRepos
+}
+
+func listRepos(ctx context.Context, cl *github.Client, user string) []*github.Repository {
+	var allRepos []*github.Repository
+	opt := &github.RepositoryListByUserOptions{
+		ListOptions: github.ListOptions{PerPage: 10},
+	}
+	for {
+		repos, resp, err := cl.Repositories.ListByUser(ctx, user, opt)
+		must(err, "listing repositories")
+		allRepos = append(allRepos, repos...)
+		if resp.NextPage == 0 {
+			break
+		}
+		opt.Page = resp.NextPage
+	}
+	return allRepos
+}
+
+func validateFlags() {
+	if *username == "" {
+		log.Fatal("username is required")
+	}
+	if *hostname == "" {
+		log.Fatal("hostname is required")
+	}
+}
+
+func must(err error, msg string) {
+	if err == nil {
+		return
+	}
+	if _, ok := err.(*github.RateLimitError); ok {
+		err = fmt.Errorf("rate limited: %v", err)
+	}
+	if _, ok := err.(*github.AbuseRateLimitError); ok {
+		err = fmt.Errorf("abuse rate limited: %v", err)
+	}
+	log.Fatalf("%s: %v", msg, err)
+}

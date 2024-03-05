@@ -1,0 +1,642 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 24.6 95% 53.1%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 24.6 95% 53.1%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 20.5 90.2% 48.2%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 72.2% 50.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 20.5 90.2% 48.2%;
+  }
+
+  html,
+  body {
+    font-family: ml;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/0-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0020-007F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/1-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0020-007F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/2-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0080-00FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/3-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0080-00FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/4-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0100-017F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/5-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0100-017F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/6-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+1E00-1EFF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/7-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+1E00-1EFF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/8-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0180-024F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/9-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0180-024F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/10-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2C60-2C7F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/11-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2C60-2C7F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/12-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+A720-A7FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/13-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+A720-A7FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/14-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0250-02AF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/15-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0250-02AF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/16-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0400-04FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/17-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0400-04FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/18-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0500-052F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/19-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0500-052F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/20-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0370-03FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/21-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0370-03FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/22-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2000-206F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/23-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2000-206F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/24-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2070-209F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/25-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2070-209F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/26-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+3000-303F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/27-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+3000-303F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/28-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0530-058F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/29-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0530-058F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/30-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0980-09FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/31-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0980-09FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/32-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+1780-17FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/33-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+1780-17FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/34-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0E00-0E7F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/35-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0E00-0E7F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/36-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2600-26FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/37-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2600-26FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/38-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2700-27BF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/39-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2700-27BF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/40-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2300-23FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/41-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2300-23FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/42-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2100-214F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/43-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2100-214F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/44-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2190-21FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/45-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2190-21FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/46-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2B00-2BFF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/47-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2B00-2BFF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/48-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+20A0-20CF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/49-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+20A0-20CF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/50-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2200-22FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/51-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2200-22FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/52-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2580-259F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/53-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2580-259F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/54-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+25A0-25FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/55-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+25A0-25FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/56-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+2500-257F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/57-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+2500-257F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/58-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0300-036F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/59-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+0300-036F;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/60-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+02B0-02FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/61-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+02B0-02FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/62-normal.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+E000-F8FF;
+  }
+
+  @font-face {
+    src: url(/assets/woff2/63-italic.woff2) format("woff2");
+    font-family: ml;
+    font-weight: 100 900;
+    font-style: italic;
+    unicode-range: U+E000-F8FF;
+  }
+}
+/* 
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+ 
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+ 
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+ 
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+ 
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+ 
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+ 
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+ 
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+ 
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+ 
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+} */
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
