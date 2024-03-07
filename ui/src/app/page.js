@@ -14,10 +14,12 @@ import { Button } from "@/components/ui/button"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
 import { Separator } from "@/components/ui/separator"
 import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils"
 
-import { Clipboard } from 'lucide-react'
+import { ArrowUpRightIcon, Clipboard } from 'lucide-react'
 import Link from "next/link"
 import { toast } from "sonner"
+import { Badge } from "@/components/ui/badge"
 
 export default function Home() {
   repos.sort((a, b) => b.stars - a.stars)
@@ -32,7 +34,15 @@ export default function Home() {
         {repos.map((repo, index) => (
           <Card key={index} className="w-[350px] m-4 flex flex-col justify-between">
             <CardHeader>
-              <CardTitle>{repo.owner}/{repo.name}</CardTitle>
+              <CardTitle className="flex flex-row justify-between mb-2">
+                <span>{repo.owner}/{repo.name}</span>
+                <Badge variant="outline" className={cn("bg-opacity-10", repo.alpha_release ? "bg-red-500" : "bg-sky-500")}>
+                  <div className="flex flex-row align-center text-muted-foreground">
+                    <span className={cn("flex h-2 w-2 mr-2 translate-y-1 rounded-full", repo.alpha_release ? "bg-red-500" : "bg-sky-500")} />
+                    <span>{repo.latest_tag}</span>
+                  </div>
+                </Badge>
+              </CardTitle>
               <CardDescription>{repo.desc}</CardDescription>
             </CardHeader>
             <CardContent>
@@ -41,24 +51,31 @@ export default function Home() {
                 <span className="overflow-auto px-2 py-2 whitespace-nowrap">{`github.com/${repo.owner}/${repo.name}.git`}</span>
                 <Button
                   variant="outline" className="px-2"
-                  onClick={() => 
+                  onClick={() => {
+                    navigator.clipboard.writeText(`git clone https://github.com/${repo.owner}/${repo.name}.git`)
                     toast("Copied to clipboard", {
                       description: "Run `git clone` in terminal to clone the repository."
                     })
-                  }
+                  }}
                 >
                   <Clipboard className="w-4" />
                 </Button>
               </div>
             </CardContent>
-            <CardFooter className="flex justify-end">
+            <CardFooter className="flex justify-between">
               {/* <Button variant="outline">Cancel</Button> */}
+              <Link href={`https://pkg.go.dev/${repo.go_package}`} target="_blank" rel="noreferrer">
+                <Button variant="outline">
+                  <span className="mr-2 font-light text-xs">pkg.go.dev</span>
+                  <ArrowUpRightIcon size={16} />
+                </Button>
+              </Link>
               <Link href={`https://github.com/${repo.owner}/${repo.name}`} target="_blank" rel="noreferrer">
                 <Button variant="outline">
-                  <GitHubLogoIcon className="mx-1" />
-                  <span className="mx-1 font-light">Star</span>
-                  <Separator orientation="vertical" className="ml-2 mr-3 bg-white" />
-                  <span className="mx-1 font-light">{repo.stars}</span>
+                  <GitHubLogoIcon className="mr-1" />
+                  <span className="mx-1 font-light text-xs">Star</span>
+                  <Separator orientation="vertical" className="ml-1 mr-2 bg-white" />
+                  <span className="ml-1 font-light text-xs">{repo.stars}</span>
                 </Button>
               </Link>
             </CardFooter>

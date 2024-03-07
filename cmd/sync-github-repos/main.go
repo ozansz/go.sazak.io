@@ -25,10 +25,13 @@ var (
 )
 
 type Repo struct {
-	Owner       string `json:"owner"`
-	Name        string `json:"name"`
-	Stars       uint   `json:"stars"`
-	Description string `json:"desc"`
+	Owner        string `json:"owner"`
+	Name         string `json:"name"`
+	Stars        uint   `json:"stars"`
+	Description  string `json:"desc"`
+	GoPackage    string `json:"go_package"`
+	LatestTag    string `json:"latest_tag"`
+	AlphaRelease bool   `json:"alpha_release"`
 }
 
 type RepoArchive []*Repo
@@ -55,24 +58,63 @@ func main() {
 	ctx := context.Background()
 	repos := listRepos(ctx, cl, *username)
 
-	repos = filterGoRepositories(ctx, cl, *hostname, repos)
+	repoByPkg := filterGoRepositories(ctx, cl, *hostname, repos)
 	repoArchive := make(RepoArchive, 0, len(repos))
-	for _, repo := range repos {
+	for pkg, repo := range repoByPkg {
 		repoArchive = append(repoArchive, &Repo{
 			Owner:       repo.GetOwner().GetLogin(),
 			Name:        repo.GetName(),
 			Stars:       uint(repo.GetStargazersCount()),
 			Description: repo.GetDescription(),
+			GoPackage:   pkg,
 		})
 	}
+
+	populateLatestReleases(ctx, cl, repoArchive)
 
 	b, err := json.MarshalIndent(repoArchive, "", "  ")
 	must(err, "marshaling JSON")
 	must(os.WriteFile(*outPath, b, 0644), "writing JSON to file")
 }
 
-func filterGoRepositories(ctx context.Context, cl *github.Client, hostname string, repos []*github.Repository) []*github.Repository {
-	var goRepos []*github.Repository
+func populateLatestReleases(ctx context.Context, cl *github.Client, repos RepoArchive) {
+	for _, r := range repos {
+		release, resp, err := cl.Repositories.GetLatestRelease(ctx, r.Owner, r.Name)
+		if resp.StatusCode == 404 {
+			// This repo may have one pre-release
+			releases, _, err := cl.Repositories.ListReleases(ctx, r.Owner, r.Name, nil)
+			must(err, "listing releases")
+
+			if len(releases) == 0 {
+				// No stable or pre-release found
+				continue
+			}
+
+			latest := releases[0]
+			for _, rel := range releases {
+				if rel.GetCreatedAt().After(latest.GetCreatedAt().Time) {
+					latest = rel
+				}
+			}
+
+			release = latest
+		} else {
+			must(err, "getting latest release")
+		}
+
+		if release != nil {
+			r.LatestTag = release.GetTagName()
+
+			pre := release.GetPrerelease()
+			v0 := strings.HasPrefix(r.LatestTag, "v0.")
+			r.AlphaRelease = pre || v0
+		}
+	}
+}
+
+func filterGoRepositories(ctx context.Context, cl *github.Client, hostname string, repos []*github.Repository) map[string]*github.Repository {
+	goRepos := map[string]*github.Repository{}
+
 	prefix := fmt.Sprintf("module %s", hostname)
 
 	for _, repo := range repos {
@@ -92,12 +134,22 @@ func filterGoRepositories(ctx context.Context, cl *github.Client, hostname strin
 			log.Printf("empty go.mod file found in %s/%s", repo.GetOwner().GetLogin(), repo.GetName())
 			continue
 		}
-		contentStr, err := base64.StdEncoding.DecodeString(*content.Content)
+		contentBytes, err := base64.StdEncoding.DecodeString(*content.Content)
 		must(err, "decoding go.mod file")
+
+		contentStr := strings.TrimSpace(string(contentBytes))
+
 		log.Printf("go.mod file in %s/%s: %s", repo.GetOwner().GetLogin(), repo.GetName(), contentStr)
+
 		if strings.HasPrefix(string(contentStr), prefix) {
-			log.Printf("go.mod file in %s/%s has prefix %s", repo.GetOwner().GetLogin(), repo.GetName(), prefix)
-			goRepos = append(goRepos, repo)
+			goPkg := strings.Split(contentStr, "\n")[0][7:]
+
+			if _, ok := goRepos[goPkg]; ok {
+				log.Fatal("duplicate go package found:", goPkg)
+			}
+
+			log.Printf("go.mod file in %s/%s has prefix %s, and Go package is: %s", repo.GetOwner().GetLogin(), repo.GetName(), prefix, goPkg)
+			goRepos[goPkg] = repo
 		}
 	}
 	return goRepos

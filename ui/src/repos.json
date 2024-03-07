@@ -1,32 +1,29 @@
 [
   {
     "owner": "ozansz",
-    "name": "card-game",
-    "stars": 0,
-    "desc": ""
-  },
-  {
-    "owner": "ozansz",
     "name": "cv-go",
     "stars": 0,
-    "desc": "Build awesome CVs from YAML"
+    "desc": "Build awesome CVs from YAML",
+    "go_package": "go.sazak.io/cv-go",
+    "latest_tag": "v0.1.0",
+    "alpha_release": true
   },
   {
     "owner": "ozansz",
     "name": "gls",
     "stars": 62,
-    "desc": "Minimal file manager with terminal UI #Go"
+    "desc": "Minimal file manager with terminal UI #Go",
+    "go_package": "go.sazak.io/gls",
+    "latest_tag": "v1.4.0",
+    "alpha_release": false
   },
   {
     "owner": "ozansz",
     "name": "utils",
     "stars": 0,
-    "desc": "Small utility containers for testing and stuff. I put here the programs that I say \"I wish there was a container that does X\" more than once to myself, to be containerized."
-  },
-  {
-    "owner": "ozansz",
-    "name": "xort",
-    "stars": 0,
-    "desc": ""
+    "desc": "Small utility containers for testing and stuff. I put here the programs that I say \"I wish there was a container that does X\" more than once to myself, to be containerized.",
+    "go_package": "go.sazak.io/utils",
+    "latest_tag": "v1.0-alpha",
+    "alpha_release": true
   }
 ]
