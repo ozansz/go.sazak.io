@@ -2,7 +2,6 @@ const repos = require('@/repos.json')
 
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 export async function getStaticPaths() {
     return {
@@ -13,9 +12,6 @@ export async function getStaticPaths() {
 
 export default function RepoSlug({ params }) {
   const { slug } = params
-
-  const router = useRouter()
-  console.info("router", router, "slug", slug, "query params", router.query, "params", params)
 
   return (
     <div className="h-full flex flex-row align-center justify-center items-center mx-5">
