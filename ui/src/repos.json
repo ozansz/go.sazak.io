@@ -17,7 +17,7 @@
     "stars": 0,
     "desc": "My custom Go package index, go.sazak.io",
     "go_package": "go-sazak-io",
-    "latest_tag": "v1.0",
+    "latest_tag": "v1.0.0",
     "alpha_release": false,
     "has_cli_app": false,
     "packages": null,
