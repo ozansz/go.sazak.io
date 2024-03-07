@@ -22,6 +22,9 @@ import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
 
 export default function Home() {
+  // Order by latest tag, alpha release, and stars
+  repos.sort((a, b) => a.latest_tag > b.latest_tag ? 1 : -1)
+  repos.sort((a, b) => b.alpha_release ? -1 : 1)
   repos.sort((a, b) => b.stars - a.stars)
 
   return (
