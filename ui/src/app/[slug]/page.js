@@ -25,10 +25,16 @@ export default function RepoSlug({ params }) {
 export async function generateMetadata({ params }) {
     const { slug } = params
 
+    const repo = repos.find(repo => repo.go_package === slug)
+
+    if (!repo) {
+      throw new Error(`Repo with Go pacakge name (slug) not found in generateMetadata: ${slug}`)
+    }
+
     return {
         other: {
-            'go-import': `go.sazak.io/${slug} git https://github.com/ozansz/${slug}`,
-            'go-source': `go.sazak.io/${slug} https://github.com/ozansz/${slug} https://github.com/ozansz/${slug}/tree/master{/dir} https://github.com/ozansz/${slug}/tree/master{/dir}/{file}#L{line}`
+            'go-import': "go.sazak.io/"+slug+" git https://github.com/"+repo.owner+"/"+repo.name,
+            'go-source': "go.sazak.io/"+slug+" https://github.com/"+repo.owner+"/"+repo.name+" https://github.com/"+repo.owner+"/"+repo.name+"/tree/master{/dir} https://github.com/"+repo.owner+"/"+repo.name+"/tree/master{/dir}/{file}#L{line}",
         }
     }
 }
