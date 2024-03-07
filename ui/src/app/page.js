@@ -64,7 +64,6 @@ export default function Home() {
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between">
-                {/* <Button variant="outline">Cancel</Button> */}
                 <Link href={`https://pkg.go.dev/go.sazak.io/${repo.go_package}`} target="_blank" rel="noreferrer">
                   <Button variant="outline">
                     <span className="mr-2 font-light text-xs">pkg.go.dev</span>
