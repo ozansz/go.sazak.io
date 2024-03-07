@@ -50,7 +50,24 @@ export default function Home() {
                 <CardDescription>{repo.desc}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Label>Clone</Label>
+                {repo.has_cli_app && <div>
+                  <Label className="text-xs">Install CLI App</Label>
+                  <div className="flex flex-row items-center justify-between rounded-md border p-2 mt-2 mb-4 text-sm text-muted-foreground">
+                    <span className="overflow-auto px-2 py-2 whitespace-nowrap">{`go install go.sazak.io/${repo.go_package}@latest`}</span>
+                    <Button
+                      variant="outline" className="px-2"
+                      onClick={() => {
+                        navigator.clipboard.writeText(`go install go.sazak.io/${repo.go_package}@latest`)
+                        toast("Copied to clipboard", {
+                          description: "Run `go install` in terminal to install the " + repo.name + " CLI app."
+                        })
+                      }}
+                    >
+                      <Clipboard className="w-4" />
+                    </Button>
+                  </div>
+                </div>}
+                <Label className="text-xs">Clone Repo</Label>
                 <div className="flex flex-row items-center justify-between rounded-md border p-2 mt-2 text-sm text-muted-foreground">
                   <span className="overflow-auto px-2 py-2 whitespace-nowrap">{`github.com/${repo.owner}/${repo.name}.git`}</span>
                   <Button

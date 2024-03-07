@@ -1,12 +1,23 @@
 [
   {
     "owner": "ozansz",
+    "name": "gls",
+    "stars": 61,
+    "desc": "Minimal file manager with terminal UI #Go",
+    "go_package": "gls",
+    "latest_tag": "v1.4.1",
+    "alpha_release": false,
+    "has_cli_app": true
+  },
+  {
+    "owner": "ozansz",
     "name": "go.sazak.io",
     "stars": 0,
     "desc": "My custom Go package index, go.sazak.io",
     "go_package": "go-sazak-io",
     "latest_tag": "v1.0",
-    "alpha_release": false
+    "alpha_release": false,
+    "has_cli_app": false
   },
   {
     "owner": "ozansz",
@@ -15,15 +26,7 @@
     "desc": "Small utility containers for testing and stuff. I put here the programs that I say \"I wish there was a container that does X\"",
     "go_package": "utils",
     "latest_tag": "v1.0-alpha",
-    "alpha_release": true
-  },
-  {
-    "owner": "ozansz",
-    "name": "gls",
-    "stars": 62,
-    "desc": "Minimal file manager with terminal UI #Go",
-    "go_package": "gls",
-    "latest_tag": "v1.4.0",
-    "alpha_release": false
+    "alpha_release": true,
+    "has_cli_app": false
   }
 ]

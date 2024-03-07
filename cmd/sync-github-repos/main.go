@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"slices"
 	"strings"
 
 	"github.com/google/go-github/v60/github"
@@ -15,6 +16,7 @@ import (
 
 const (
 	authTokenEnv = "GITHUB_PUBLIC_REPO_READ_TOKEN"
+	cliAppTopic  = "cli"
 )
 
 var (
@@ -32,6 +34,7 @@ type Repo struct {
 	GoPackage    string `json:"go_package"`
 	LatestTag    string `json:"latest_tag"`
 	AlphaRelease bool   `json:"alpha_release"`
+	HasCLIApp    bool   `json:"has_cli_app"`
 }
 
 type RepoArchive []*Repo
@@ -67,6 +70,7 @@ func main() {
 			Stars:       uint(repo.GetStargazersCount()),
 			Description: repo.GetDescription(),
 			GoPackage:   pkg,
+			HasCLIApp:   repo.Topics != nil && slices.Contains(repo.Topics, cliAppTopic),
 		})
 	}
 

@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/react"
 import { Toaster } from "@/components/ui/sonner"
 
 export const metadata = {
-  title: "go.sazak.io - Ozan Sazak",
+  title: "go.sazak.io",
   description: "Go Package Index of Ozan Sazak",
 };
 
