@@ -7,7 +7,8 @@
     "go_package": "gls",
     "latest_tag": "v1.4.1",
     "alpha_release": false,
-    "has_cli_app": true
+    "has_cli_app": true,
+    "packages": null
   },
   {
     "owner": "ozansz",
@@ -17,7 +18,8 @@
     "go_package": "go-sazak-io",
     "latest_tag": "v1.0",
     "alpha_release": false,
-    "has_cli_app": false
+    "has_cli_app": false,
+    "packages": null
   },
   {
     "owner": "ozansz",
@@ -27,6 +29,9 @@
     "go_package": "utils",
     "latest_tag": "v1.0-alpha",
     "alpha_release": true,
-    "has_cli_app": false
+    "has_cli_app": false,
+    "packages": {
+      "utils/request-forever": "ghcr.io/ozansz/utils/request-forever:v1.0-alpha"
+    }
   }
 ]

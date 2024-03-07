@@ -20,12 +20,29 @@ import { ArrowUpRightIcon, Clipboard } from 'lucide-react'
 import Link from "next/link"
 import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
+import { useState } from "react"
 
 export default function Home() {
   // Order by latest tag, alpha release, and stars
   repos.sort((a, b) => a.latest_tag > b.latest_tag ? 1 : -1)
   repos.sort((a, b) => b.alpha_release ? -1 : 1)
   repos.sort((a, b) => b.stars - a.stars)
+
+  repos.forEach(repo => {
+    if (repo.packages) {
+      repo.packages_order = Object.keys(repo.packages).sort((a, b) => a > b ? 1 : -1)
+    }
+  })
+
+  let defaultPackages = {}
+  repos.forEach(repo => {
+    if (repo.packages) {
+      defaultPackages[repo.go_package] = repo.packages[repo.packages_order[0]]
+    }
+  })
+
+  const [selectedPackages, setSelectedPackages] = useState(defaultPackages)
 
   return (
     <div className="flex flex-col justify-between h-full w-[80%] mx-[10%]">
@@ -60,6 +77,40 @@ export default function Home() {
                         navigator.clipboard.writeText(`go install go.sazak.io/${repo.go_package}/cmd/${repo.go_package}@latest`)
                         toast("Copied to clipboard", {
                           description: "Run `go install` in terminal to install the " + repo.name + " CLI app."
+                        })
+                      }}
+                    >
+                      <Clipboard className="w-4" />
+                    </Button>
+                  </div>
+                </div>}
+                {repo.packages_order && <div>
+                  <Label className="text-xs">Pull containers</Label>
+                  <Select>
+                    <SelectTrigger className="max-w-[300px] mt-2">
+                      <SelectValue
+                        placeholder={repo.packages_order[0]} defaultValue={repo.packages[repo.packages_order[0]]}
+                        onSelect={value => {
+                          console.log(`onSelect called for ${repo.go_package}: ${value}`)
+                          setSelectedPackages({ ...selectedPackages, [repo.go_package]: repo.packages[value] })
+                        }}
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {/* <SelectLabel>Fruits</SelectLabel> */}
+                        {repo.packages_order.map(pkg_name => <SelectItem key={pkg_name} value={pkg_name}>{pkg_name}</SelectItem>)}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <div className="flex flex-row items-center justify-between rounded-md border p-2 mt-2 mb-4 text-sm text-muted-foreground">
+                    <span className="overflow-auto px-2 py-2 whitespace-nowrap">{`docker pull ${selectedPackages[repo.go_package]}`}</span>
+                    <Button
+                      variant="outline" className="px-2"
+                      onClick={() => {
+                        navigator.clipboard.writeText(`docker pull ${selectedPackages[repo.go_package]}`)
+                        toast("Copied to clipboard", {
+                          description: "Run `docker pull` in terminal to pull the container."
                         })
                       }}
                     >

@@ -27,14 +27,15 @@ var (
 )
 
 type Repo struct {
-	Owner        string `json:"owner"`
-	Name         string `json:"name"`
-	Stars        uint   `json:"stars"`
-	Description  string `json:"desc"`
-	GoPackage    string `json:"go_package"`
-	LatestTag    string `json:"latest_tag"`
-	AlphaRelease bool   `json:"alpha_release"`
-	HasCLIApp    bool   `json:"has_cli_app"`
+	Owner        string            `json:"owner"`
+	Name         string            `json:"name"`
+	Stars        uint              `json:"stars"`
+	Description  string            `json:"desc"`
+	GoPackage    string            `json:"go_package"`
+	LatestTag    string            `json:"latest_tag"`
+	AlphaRelease bool              `json:"alpha_release"`
+	HasCLIApp    bool              `json:"has_cli_app"`
+	Packages     map[string]string `json:"packages"`
 }
 
 type RepoArchive []*Repo
@@ -75,10 +76,39 @@ func main() {
 	}
 
 	populateLatestReleases(ctx, cl, repoArchive)
+	populatePackages(ctx, cl, *username, repoArchive)
 
 	b, err := json.MarshalIndent(repoArchive, "", "  ")
 	must(err, "marshaling JSON")
 	must(os.WriteFile(*outPath, b, 0644), "writing JSON to file")
+}
+
+func populatePackages(ctx context.Context, cl *github.Client, user string, repos RepoArchive) {
+	var allPackages []*github.Package
+	opt := &github.PackageListOptions{
+		ListOptions: github.ListOptions{PerPage: 10},
+		PackageType: github.String("container"),
+	}
+	for {
+		repos, resp, err := cl.Users.ListPackages(ctx, user, opt)
+		must(err, "listing packages")
+		allPackages = append(allPackages, repos...)
+		if resp.NextPage == 0 {
+			break
+		}
+		opt.Page = resp.NextPage
+	}
+
+	for _, pkg := range allPackages {
+		for _, r := range repos {
+			if pkg.Repository.GetFullName() == r.Owner+"/"+r.Name {
+				if r.Packages == nil {
+					r.Packages = make(map[string]string)
+				}
+				r.Packages[pkg.GetName()] = fmt.Sprintf("ghcr.io/%s/%s:%s", user, pkg.GetName(), r.LatestTag)
+			}
+		}
+	}
 }
 
 func populateLatestReleases(ctx context.Context, cl *github.Client, repos RepoArchive) {
