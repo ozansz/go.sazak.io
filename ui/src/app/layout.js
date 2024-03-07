@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/react"
 import { Toaster } from "@/components/ui/sonner"
 
 export const metadata = {
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
       <body className="dark h-screen">
         {children}
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
