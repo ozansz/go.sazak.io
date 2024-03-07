@@ -25,7 +25,7 @@ export default function Home() {
   repos.sort((a, b) => b.stars - a.stars)
 
   return (
-    <div className="flex flex-col justify-between h-full w-[80%] mx-[10%] mb-10">
+    <div className="flex flex-col justify-between h-full w-[80%] mx-[10%]">
       <div>
         <div className="flex flex-col mx-4 mt-16 mb-12">
           <h1 className="text-3xl">go.sazak.io</h1>
@@ -83,7 +83,7 @@ export default function Home() {
           ))}
         </div>
       </div>
-      <div className="flex flex-row w-full align-center justify-center text-muted-foreground font-light text-xs mb-5">
+      <div className="flex flex-row w-full align-center justify-center text-muted-foreground font-light text-xs pt-16 pb-10">
         <div className="flex flex-row align-center items-center hover:text-white">
           <GitHubLogoIcon className="w-6 h-6 mr-3" />
           <span>This package index is open source.</span>

@@ -1,6 +1,15 @@
 [
   {
     "owner": "ozansz",
+    "name": "cv-go",
+    "stars": 0,
+    "desc": "Build awesome CVs from YAML",
+    "go_package": "cv-go",
+    "latest_tag": "v0.1.0",
+    "alpha_release": true
+  },
+  {
+    "owner": "ozansz",
     "name": "gls",
     "stars": 62,
     "desc": "Minimal file manager with terminal UI #Go",
@@ -21,18 +30,9 @@
     "owner": "ozansz",
     "name": "utils",
     "stars": 0,
-    "desc": "Small utility containers for testing and stuff. I put here the programs that I say \"I wish there was a container that does X\" more than once to myself, to be containerized.",
+    "desc": "Small utility containers for testing and stuff. I put here the programs that I say \"I wish there was a container that does X\"",
     "go_package": "utils",
     "latest_tag": "v1.0-alpha",
-    "alpha_release": true
-  },
-  {
-    "owner": "ozansz",
-    "name": "cv-go",
-    "stars": 0,
-    "desc": "Build awesome CVs from YAML",
-    "go_package": "cv-go",
-    "latest_tag": "v0.1.0",
     "alpha_release": true
   }
 ]
