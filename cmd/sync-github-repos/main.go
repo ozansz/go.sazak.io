@@ -143,6 +143,7 @@ func filterGoRepositories(ctx context.Context, cl *github.Client, hostname strin
 
 		if strings.HasPrefix(string(contentStr), prefix) {
 			goPkg := strings.Split(contentStr, "\n")[0][7:]
+			goPkg = strings.TrimPrefix(goPkg, hostname+"/")
 
 			if _, ok := goRepos[goPkg]; ok {
 				log.Fatal("duplicate go package found:", goPkg)

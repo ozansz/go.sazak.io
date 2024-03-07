@@ -65,7 +65,7 @@ export default function Home() {
               </CardContent>
               <CardFooter className="flex justify-between">
                 {/* <Button variant="outline">Cancel</Button> */}
-                <Link href={`https://pkg.go.dev/${repo.go_package}`} target="_blank" rel="noreferrer">
+                <Link href={`https://pkg.go.dev/go.sazak.io/${repo.go_package}`} target="_blank" rel="noreferrer">
                   <Button variant="outline">
                     <span className="mr-2 font-light text-xs">pkg.go.dev</span>
                     <ArrowUpRightIcon size={16} />
@@ -89,7 +89,7 @@ export default function Home() {
           <GitHubLogoIcon className="w-6 h-6 mr-3" />
           <span>This package index is open source.</span>
         </div>
-        <Separator orientation="vertical" className="mx-5 bg-white"/>
+        <Separator orientation="vertical" className="mx-5"/>
         <Link
           href="https://github.com/ozansz/go.sazak.io"
           target="_blank" rel="noreferrer"
