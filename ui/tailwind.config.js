@@ -9,6 +9,9 @@ module.exports = {
   ],
   prefix: "",
   theme: {
+    screens: {
+      "smallscr": {"max": "955px"},
+    },
     container: {
       center: true,
       padding: "2rem",

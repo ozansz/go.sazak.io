@@ -30,13 +30,13 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-between h-full w-[80%] mx-[10%]">
       <div>
-        <div className="flex flex-col mx-4 mt-16 mb-12">
+        <div className="flex flex-col mx-4 mt-16 mb-12 smallscr:mx-0 smallscr:mt-8 smallscr:mb-6">
           <h1 className="text-3xl">go.sazak.io</h1>
           <h2 className="text-sm mt-1 text-muted-foreground">Sazak's Go Package Index</h2>
         </div>
-        <div className="flex flex-row flex-wrap justify-start align-center">
+        <div className="flex flex-row flex-wrap justify-start align-center smallscr:flex-col smallscr:items-center">
           {repos.map((repo, index) => (
-            <Card key={index} className="w-[350px] m-4 flex flex-col justify-between">
+            <Card key={index} className="w-[350px] m-4 flex flex-col justify-between smallscr:w-full smallscr:min-w-[316px] smallscr:my-2 smallscr:mx-0">
               <CardHeader>
                 <CardTitle className="flex flex-row justify-between mb-2">
                   <span>{repo.owner}/{repo.name}</span>
@@ -53,11 +53,11 @@ export default function Home() {
                 {repo.has_cli_app && <div>
                   <Label className="text-xs">Install CLI App</Label>
                   <div className="flex flex-row items-center justify-between rounded-md border p-2 mt-2 mb-4 text-sm text-muted-foreground">
-                    <span className="overflow-auto px-2 py-2 whitespace-nowrap">{`go install go.sazak.io/${repo.go_package}@latest`}</span>
+                    <span className="overflow-auto px-2 py-2 whitespace-nowrap">{`go install go.sazak.io/${repo.go_package}/cmd/${repo.go_package}@latest`}</span>
                     <Button
                       variant="outline" className="px-2"
                       onClick={() => {
-                        navigator.clipboard.writeText(`go install go.sazak.io/${repo.go_package}@latest`)
+                        navigator.clipboard.writeText(`go install go.sazak.io/${repo.go_package}/cmd/${repo.go_package}@latest`)
                         toast("Copied to clipboard", {
                           description: "Run `go install` in terminal to install the " + repo.name + " CLI app."
                         })
@@ -105,7 +105,7 @@ export default function Home() {
       </div>
       <div className="flex flex-row w-full align-center justify-center text-muted-foreground font-light text-xs pt-16 pb-10">
         <div className="flex flex-row align-center items-center hover:text-white">
-          <GitHubLogoIcon className="w-6 h-6 mr-3" />
+          <GitHubLogoIcon className="w-6 h-6 mr-3 smallscr:hidden" />
           <span>This package index is open source.</span>
         </div>
         <Separator orientation="vertical" className="mx-5"/>
