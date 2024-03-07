@@ -36,6 +36,7 @@ type Repo struct {
 	AlphaRelease bool              `json:"alpha_release"`
 	HasCLIApp    bool              `json:"has_cli_app"`
 	Packages     map[string]string `json:"packages"`
+	MasterBranch string            `json:"master_branch"`
 }
 
 type RepoArchive []*Repo
@@ -66,12 +67,13 @@ func main() {
 	repoArchive := make(RepoArchive, 0, len(repos))
 	for pkg, repo := range repoByPkg {
 		repoArchive = append(repoArchive, &Repo{
-			Owner:       repo.GetOwner().GetLogin(),
-			Name:        repo.GetName(),
-			Stars:       uint(repo.GetStargazersCount()),
-			Description: repo.GetDescription(),
-			GoPackage:   pkg,
-			HasCLIApp:   repo.Topics != nil && slices.Contains(repo.Topics, cliAppTopic),
+			Owner:        repo.GetOwner().GetLogin(),
+			Name:         repo.GetName(),
+			Stars:        uint(repo.GetStargazersCount()),
+			Description:  repo.GetDescription(),
+			GoPackage:    pkg,
+			HasCLIApp:    repo.Topics != nil && slices.Contains(repo.Topics, cliAppTopic),
+			MasterBranch: repo.GetDefaultBranch(),
 		})
 	}
 

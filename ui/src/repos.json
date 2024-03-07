@@ -1,6 +1,18 @@
 [
   {
     "owner": "ozansz",
+    "name": "gls",
+    "stars": 61,
+    "desc": "Minimal file manager with terminal UI #Go",
+    "go_package": "gls",
+    "latest_tag": "v1.4.1",
+    "alpha_release": false,
+    "has_cli_app": true,
+    "packages": null,
+    "master_branch": "main"
+  },
+  {
+    "owner": "ozansz",
     "name": "go.sazak.io",
     "stars": 0,
     "desc": "My custom Go package index, go.sazak.io",
@@ -8,7 +20,8 @@
     "latest_tag": "v1.0",
     "alpha_release": false,
     "has_cli_app": false,
-    "packages": null
+    "packages": null,
+    "master_branch": "main"
   },
   {
     "owner": "ozansz",
@@ -21,17 +34,7 @@
     "has_cli_app": false,
     "packages": {
       "utils/request-forever": "ghcr.io/ozansz/utils/request-forever:v1.0-alpha"
-    }
-  },
-  {
-    "owner": "ozansz",
-    "name": "gls",
-    "stars": 61,
-    "desc": "Minimal file manager with terminal UI #Go",
-    "go_package": "gls",
-    "latest_tag": "v1.4.1",
-    "alpha_release": false,
-    "has_cli_app": true,
-    "packages": null
+    },
+    "master_branch": "main"
   }
 ]

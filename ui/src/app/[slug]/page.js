@@ -2,6 +2,7 @@ const repos = require('@/repos.json')
 
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export async function getStaticPaths() {
     return {
@@ -12,6 +13,9 @@ export async function getStaticPaths() {
 
 export default function RepoSlug({ params }) {
   const { slug } = params
+
+  const router = useRouter()
+  console.info("router", router, "slug", slug, "query params", router.query, "params", params)
 
   return (
     <div className="h-full flex flex-row align-center justify-center items-center mx-5">
@@ -34,7 +38,7 @@ export async function generateMetadata({ params }) {
     return {
         other: {
             'go-import': "go.sazak.io/"+slug+" git https://github.com/"+repo.owner+"/"+repo.name,
-            'go-source': "go.sazak.io/"+slug+" https://github.com/"+repo.owner+"/"+repo.name+" https://github.com/"+repo.owner+"/"+repo.name+"/tree/master{/dir} https://github.com/"+repo.owner+"/"+repo.name+"/tree/master{/dir}/{file}#L{line}",
+            'go-source': "go.sazak.io/"+slug+" https://github.com/"+repo.owner+"/"+repo.name+" https://github.com/"+repo.owner+"/"+repo.name+"/tree/"+repo.master_branch+"{/dir} https://github.com/"+repo.owner+"/"+repo.name+"/tree/"+repo.master_branch+"{/dir}/{file}#L{line}",
         }
     }
 }
