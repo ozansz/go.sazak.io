@@ -2,7 +2,7 @@ import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/react"
 import { Toaster } from "@/components/ui/sonner"
-import { sharedDesc, sharedTitle, twitterHandle } from "@/lib/constants";
+import { sharedLongDesc, sharedTitle, twitterHandle } from "@/lib/constants";
 
 export default function RootLayout({ children }) {
   return (
@@ -20,14 +20,14 @@ export default function RootLayout({ children }) {
 export const metadata = {
   metadataBase: new URL('https://go.sazak.io'),
   title: sharedTitle,
-  description: sharedDesc,
+  description: sharedLongDesc,
   robots: {
     index: true,
     follow: true
   },
   openGraph: {
     title: sharedTitle,
-    description: sharedDesc,
+    description: sharedLongDesc,
     alt: sharedTitle,
     type: 'website',
     url: '/',
