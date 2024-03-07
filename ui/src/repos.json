@@ -1,24 +1,6 @@
 [
   {
     "owner": "ozansz",
-    "name": "cv-go",
-    "stars": 0,
-    "desc": "Build awesome CVs from YAML",
-    "go_package": "cv-go",
-    "latest_tag": "v0.1.0",
-    "alpha_release": true
-  },
-  {
-    "owner": "ozansz",
-    "name": "gls",
-    "stars": 62,
-    "desc": "Minimal file manager with terminal UI #Go",
-    "go_package": "gls",
-    "latest_tag": "v1.4.0",
-    "alpha_release": false
-  },
-  {
-    "owner": "ozansz",
     "name": "go.sazak.io",
     "stars": 0,
     "desc": "My custom Go package index, go.sazak.io",
@@ -34,5 +16,14 @@
     "go_package": "utils",
     "latest_tag": "v1.0-alpha",
     "alpha_release": true
+  },
+  {
+    "owner": "ozansz",
+    "name": "gls",
+    "stars": 62,
+    "desc": "Minimal file manager with terminal UI #Go",
+    "go_package": "gls",
+    "latest_tag": "v1.4.0",
+    "alpha_release": false
   }
 ]
