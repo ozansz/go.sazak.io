@@ -5,7 +5,7 @@
     "stars": 61,
     "desc": "Minimal file manager with terminal UI #Go",
     "go_package": "gls",
-    "latest_tag": "v1.4.1",
+    "latest_tag": "v1.4.2",
     "alpha_release": false,
     "has_cli_app": true,
     "packages": null,
