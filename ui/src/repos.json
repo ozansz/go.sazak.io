@@ -14,7 +14,7 @@
   {
     "owner": "ozansz",
     "name": "go.sazak.io",
-    "stars": 0,
+    "stars": 1,
     "desc": "My custom Go package index, go.sazak.io",
     "go_package": "go-sazak-io",
     "latest_tag": "v1.0.0",
