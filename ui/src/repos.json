@@ -2,7 +2,7 @@
   {
     "owner": "ozansz",
     "name": "gls",
-    "stars": 61,
+    "stars": 62,
     "desc": "Minimal file manager with terminal UI #Go",
     "go_package": "gls",
     "latest_tag": "v1.4.2",
@@ -14,10 +14,22 @@
   {
     "owner": "ozansz",
     "name": "go.sazak.io",
-    "stars": 1,
+    "stars": 4,
     "desc": "My custom Go package index, go.sazak.io",
     "go_package": "go-sazak-io",
     "latest_tag": "v1.0.0",
+    "alpha_release": false,
+    "has_cli_app": false,
+    "packages": null,
+    "master_branch": "main"
+  },
+  {
+    "owner": "ozansz",
+    "name": "intro-ebpf-with-go",
+    "stars": 4,
+    "desc": "",
+    "go_package": "intro-ebpf",
+    "latest_tag": "",
     "alpha_release": false,
     "has_cli_app": false,
     "packages": null,
